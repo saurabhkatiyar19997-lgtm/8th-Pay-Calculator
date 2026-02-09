@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8th Pay Commission Calculator 2026</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; display: flex; justify-content: center; padding: 20px; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
+        h2 { color: #2c3e50; text-align: center; margin-bottom: 25px; }
+        label { display: block; margin: 15px 0 5px; font-weight: bold; color: #555; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+        button { width: 100%; background: #27ae60; color: white; border: none; padding: 15px; border-radius: 6px; font-size: 18px; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+        button:hover { background: #219150; }
+        .result { margin-top: 25px; padding: 15px; background: #e8f6ef; border-radius: 8px; display: none; }
+        .result p { margin: 8px 0; color: #333; font-size: 17px; display: flex; justify-content: space-between; }
+        .val { font-weight: bold; color: #27ae60; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>8th Pay CPC Predictor (2026)</h2>
+    
+    <label>Current 7th CPC Basic Pay (₹)</label>
+    <input type="number" id="basicPay" placeholder="e.g. 18000" required>
+
+    <label>Expected Fitment Factor</label>
+    <select id="fitment">
+        <option value="2.57">2.57 (Standard)</option>
+        <option value="2.86" selected>2.86 (Recommended/Expected)</option>
+        <option value="3.00">3.00 (Optimistic)</option>
+    </select>
+
+    <label>City Category (for HRA)</label>
+    <select id="city">
+        <option value="0.30">X Class (Metro - 30%)</option>
+        <option value="0.20">Y Class (Tier 2 - 20%)</option>
+        <option value="0.10">Z Class (Tier 3 - 10%)</option>
+    </select>
+
+    <button onclick="calculateSalary()">Calculate Revised Salary</button>
+
+    <div id="resultBox" class="result">
+        <p>New Basic Pay: <span class="val" id="newBasic">0</span></p>
+        <p>Estimated HRA: <span class="val" id="newHRA">0</span></p>
+        <p>Estimated DA (0%): <span class="val">₹0</span></p>
+        <hr>
+        <p><strong>Gross Salary:</strong> <span class="val" id="grossPay">0</span></p>
+    </div>
+</div>
+
+<script>
+    function calculateSalary() {
+        let basic = parseFloat(document.getElementById('basicPay').value);
+        let fitment = parseFloat(document.getElementById('fitment').value);
+        let hraRate = parseFloat(document.getElementById('city').value);
+
+        if(!basic) { alert("Please enter your Basic Pay"); return; }
+
+        let newBasic = Math.round(basic * fitment);
+        let newHRA = Math.round(newBasic * hraRate);
+        let gross = newBasic + newHRA;
+
+        document.getElementById('newBasic').innerText = "₹" + newBasic.toLocaleString('en-IN');
+        document.getElementById('newHRA').innerText = "₹" + newHRA.toLocaleString('en-IN');
+        document.getElementById('grossPay').innerText = "₹" + gross.toLocaleString('en-IN');
+        document.getElementById('resultBox').style.display = "block";
+    }
+</script>
+
+</body>
+</html>
